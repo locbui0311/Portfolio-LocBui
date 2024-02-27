@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/logo.png";
 import { Button } from "react-scroll";
 const Header = () => {
   return (
