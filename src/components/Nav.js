@@ -5,6 +5,7 @@ import {
   BsBriefcase,
   BsChatSquare,
   BsChatSquareText,
+  BsFolder2Open,
 } from "react-icons/bs";
 import { Link } from "react-scroll";
 
@@ -15,7 +16,7 @@ const Nav = () => {
         {}
         <div
           className="w-full bg-black/20 h-[96px] backdrop-blur-2xl
-        rounded-full max-w-[460px] mx-auto px-5 flex justify-between text-2xl text-white/50"
+        rounded-full max-w-[460px] mx-auto px-5 pt-4 flex justify-between text-2xl text-white/50"
         >
           <Link
             activeClass="active"
@@ -44,6 +45,15 @@ const Nav = () => {
             className=" cursor-pointer w-[60px] h-[60px] flex items-center jus"
           >
             <BsClipboardData />
+          </Link>
+          <Link
+            activeClass="active"
+            smooth={true}
+            spy={true}
+            to="projects"
+            className=" cursor-pointer w-[60px] h-[60px] flex items-center jus"
+          >
+            <BsFolder2Open />
           </Link>
           <Link
             activeClass="active"

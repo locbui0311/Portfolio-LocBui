@@ -1,61 +1,115 @@
-import React from "react";
-import { useState } from "react";
+import React, { useRef } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { fadeIn } from "../variants";
+import { FaGithub, FaLinkedin, FaEnvelope, FaPhone } from "react-icons/fa";
 
-const order = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 const Contact = () => {
-  const [counter, setCouter] = useState(() => {
-    const total = order.reduce((total, cur) => total + cur);
-    console.log(total);
-    return total;
-  });
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
-  const [info, setInfo] = useState({
-    name: "Bui Ba Loc",
-    age: 20,
-    address: "HCM",
-  });
-
-  const handleIncrease = () => {
-    setCouter(counter + 1);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add your form submission logic here
+    console.log("Form submitted");
   };
 
-  const handleReset = () => {
-    setCouter(0);
-  };
-  //// Update state with function
-  const handleUpdate = () => {
-    setInfo((prev) => ({
-      ...prev, ////callback function to get the previous state
-      ...info, //// spread operator to copy the existing state
-      bio: "Thich la code",
-    }));
-  };
   return (
-    <div className="section" id="contact">
-      Contact
-      <div className=" flex-col bg-slate-600 p-4 rounded-lg shadow-md mt-4">
-        <button
-          className="bg-red-400 p-4 rounded-lg shadow-md mt-4"
-          onClick={handleIncrease}
+    <section className="section" id="contact" ref={ref}>
+      <div className="container mx-auto">
+        <motion.h2
+          className="h2 text-center mb-8"
+          variants={fadeIn("up", 0.2)}
+          initial="hidden"
+          animate={isInView ? "show" : "hidden"}
         >
-          Increase
+          Get In Touch
+        </motion.h2>
+
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Contact Info */}
+          <motion.div
+            className="flex-1"
+            variants={fadeIn("right", 0.3)}
+            initial="hidden"
+            animate={isInView ? "show" : "hidden"}
+          >
+            <div className="bg-white/5 backdrop-blur-sm rounded-lg p-8">
+              <h3 className="h3 mb-4">Contact Information</h3>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <FaEnvelope className="text-2xl text-accent" />
+                  <span>example@email.com</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <FaPhone className="text-2xl text-accent" />
+                  <span>+84 123 456 789</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <FaGithub className="text-2xl text-accent" />
+                  <a href="#" className="hover:text-accent transition-colors">
+                    github.com/yourusername
+                  </a>
+                </div>
+                <div className="flex items-center gap-4">
+                  <FaLinkedin className="text-2xl text-accent" />
+                  <a href="#" className="hover:text-accent transition-colors">
+                    linkedin.com/in/yourusername
+                  </a>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Contact Form */}
+          <motion.div
+            className="flex-1"
+            variants={fadeIn("left", 0.3)}
+            initial="hidden"
+            animate={isInView ? "show" : "hidden"}
+          >
+            <form onSubmit={handleSubmit} className="bg-white/5 backdrop-blur-sm rounded-lg p-8">
+              <div className="space-y-4">
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Your Name"
+                    className="w-full bg-white/10 rounded-lg p-4 text-white focus:outline-none focus:ring-2 focus:ring-accent"
+                    required
+                  />
+                </div>
+                <div>
+                  <input
+                    type="email"
+                    placeholder="Your Email"
+                    className="w-full bg-white/10 rounded-lg p-4 text-white focus:outline-none focus:ring-2 focus:ring-accent"
+                    required
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Subject"
+                    className="w-full bg-white/10 rounded-lg p-4 text-white focus:outline-none focus:ring-2 focus:ring-accent"
+                    required
+                  />
+                </div>
+                <div>
+                  <textarea
+                    placeholder="Your Message"
+                    className="w-full bg-white/10 rounded-lg p-4 text-white focus:outline-none focus:ring-2 focus:ring-accent h-[200px] resize-none"
+                    required
+                  ></textarea>
+                </div>
+                <button type="submit" className="btn btn-lg w-full">
+                  Send Message
         </button>
-        <button
-          className=" bg-red-400  p-4 rounded-lg shadow-md mt-4"
-          onClick={handleReset}
-        >
-          Reset
-        </button>
-        <button
-          className=" bg-red-400  p-4 rounded-lg shadow-md mt-4"
-          onClick={handleUpdate}
-        >
-          Update
-        </button>
-        <h1 className=" text-center pt-10">{JSON.stringify(info)}</h1>
-        <h2 className=" text-center pt-10">{counter}</h2>
+              </div>
+            </form>
+          </motion.div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
